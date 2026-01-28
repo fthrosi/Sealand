@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets =["native","linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  password      String
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    Int
+  tokenHash String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user users @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model portfolios {
+  id          Int     @id @default(autoincrement())
+  name        String
+  value       String?
+  description String? @db.Text
+  img_url     String?
+}
+
+model vessel_types {
+  id      Int       @id @default(autoincrement())
+  name    String
+  img_url String?
+  vessels vessels[]
+  jobs    jobs[]
+}
+
+model flags {
+  id      Int       @id @default(autoincrement())
+  name    String
+  vessels vessels[]
+}
+
+model vessels {
+  id        Int          @id @default(autoincrement())
+  name      String
+  flag_id   Int
+  type_id   Int
+  url       String?
+  
+  // Relations
+  flag      flags        @relation(fields: [flag_id], references: [id])
+  type      vessel_types @relation(fields: [type_id], references: [id])
+}
+
+model licenses {
+  id      Int     @id @default(autoincrement())
+  img_url String
+}
+
+model jobs {
+  id             Int           @id @default(autoincrement())
+  title          String
+  level          String?
+  type_id        Int
+  times_contract String?
+  route          String?       @db.Text
+  status         JobStatus     @default(Open)
+  created_at     DateTime      @default(now())
+  
+  // Relations
+  vessel_type    vessel_types  @relation(fields: [type_id], references: [id])
+  applications   job_applied[]
+}
+
+model divisions {
+  id    Int     @id @default(autoincrement())
+  name  String
+  teams teams[]
+}
+
+model teams {
+  id          Int       @id @default(autoincrement())
+  name        String
+  img_url     String?
+  division_id Int
+  bos_id      Int?
+  role        String @default("employee")
+  
+  // Relations
+  division    divisions @relation(fields: [division_id], references: [id])
+  bos         teams?    @relation("TeamHierarchy", fields: [bos_id], references: [id])
+  subordinates teams[]   @relation("TeamHierarchy")
+}
+
+model galleries {
+  id      Int         @id @default(autoincrement())
+  img_url String
+  type    GalleryType
+}
+
+model job_applied {
+  id         Int      @id @default(autoincrement())
+  job_id     Int
+  name       String
+  email      String
+  no_telp    String
+  cv         String
+  img_url    String?
+  applied_at DateTime @default(now())
+  
+  // Relations
+  job        jobs     @relation(fields: [job_id], references: [id])
+}
+
+enum JobStatus {
+  Open
+  Closed
+}
+
+enum GalleryType {
+  Portrait
+  Landscape
+}
