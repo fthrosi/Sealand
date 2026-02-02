@@ -9,7 +9,13 @@ const ACCEPTED_IMAGE_TYPES = [
 const baseFields = {
   name: z.string().min(1, "Nama harus diisi").max(200, "Nama terlalu panjang"),
   division_id: z.number().int().positive().min(1, "Divisi harus diisi"),
-  bos_id: z.number().optional(),
+  bos_id: z
+    .union([
+      z.number(),
+      z.string().transform((val) => (val === "" ? undefined : Number(val)))
+    ])
+    .optional()
+    .transform((val) => (typeof val === "string" && val === "" ? undefined : val)),
   role: z.string().min(1, "Role harus diisi").max(100, "Role terlalu panjang"),
 };
 
@@ -28,7 +34,7 @@ export const TeamSchema = z.object({
       ),
 });
 
-export type TeamType = z.infer<typeof TeamSchema>;
+export type TeamType = Omit<z.infer<typeof TeamSchema>, 'bos_id'> & { bos_id?: string | number };
 
 export const TeamEditSchema = z.object({
   ...baseFields,

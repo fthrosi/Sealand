@@ -30,7 +30,7 @@ export default function TeamForm({ onSuccess }: TeamFormProps) {
     defaultValues: {
       name: "",
       division_id: 0,
-      bos_id: 0,
+      bos_id: undefined,
       role: "",
     },
   });
@@ -195,7 +195,11 @@ export default function TeamForm({ onSuccess }: TeamFormProps) {
           </label>
 
           <select
-            {...register("bos_id", { valueAsNumber: true })}
+            {...register("bos_id")}
+            onChange={e => {
+              const value = e.target.value;
+              setValue("bos_id", value === "" ? undefined : Number(value));
+            }}
             className="w-full border border-slate-300 p-3 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
           >
             <option value="">-- Pilih Bos --</option>
