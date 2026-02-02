@@ -79,6 +79,8 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => window.open((row.original as any).url, '_blank')}
+                  className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
