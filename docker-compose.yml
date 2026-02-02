@@ -10,6 +10,8 @@ services:
       - mysql
     ports:
       - "3001:3001"
+    volumes:
+      
     networks:
       - app-network
 

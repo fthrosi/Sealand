@@ -1,6 +1,6 @@
 import { CareerOutput } from "@/types/career.type";
 import {create} from "zustand";
-import { getCareers } from "@/api/career";
+import { getCareers,getAvailableCareers } from "@/api/career";
 import { VesselTypeOutput } from "@/types/vesels";
 import { getVesselTypes } from "@/api/vessel-type";
 import { DivisionOutput,TeamOutput } from "@/types/team";
@@ -79,21 +79,21 @@ export const useDataStore = create<DataState>((set,get)=>({
     availableCareers: [],
     setAvailableCareers:(availableCareers)=> set({availableCareers}),
     fetchAvailableCareers: async (force = false) => {
-    if (get().isFetched.careers && !force) return;
+    if (get().isFetched.availableCareers && !force) return;
     set((state) => ({
-      isLoading: { ...state.isLoading, careers: true },
+      isLoading: { ...state.isLoading, availableCareers: true },
     }));
         try {
-        const res = await getCareers();
+        const res = await getAvailableCareers();
         set((state) => ({ 
-            careers: res.data.data || [],
-            isFetched: { ...state.isFetched, careers: true }
+            availableCareers: res.data.data || [],
+            isFetched: { ...state.isFetched, availableCareers: true }
         }));
         }catch (error) {
         console.error("Error fetching careers:", error);
         } finally {
         set((state) => ({
-            isLoading: { ...state.isLoading, careers: false },
+            isLoading: { ...state.isLoading, availableCareers: false },
         }));
         }
     },

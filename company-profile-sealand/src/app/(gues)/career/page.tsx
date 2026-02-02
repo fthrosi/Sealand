@@ -66,6 +66,7 @@ export default function Careers() {
   const isModalAddOpen = useUIStore(
     (state) => state.activeModal === "addApplicant",
   );
+  console.log(dataCareer);
   const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
   return (
     <section
