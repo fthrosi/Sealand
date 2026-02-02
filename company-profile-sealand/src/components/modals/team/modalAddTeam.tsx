@@ -26,7 +26,7 @@ export default function TeamForm({ onSuccess }: TeamFormProps) {
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<TeamType>({
-    resolver: zodResolver(TeamSchema),
+    resolver: zodResolver(TeamSchema) as any,
     defaultValues: {
       name: "",
       division_id: 0,
