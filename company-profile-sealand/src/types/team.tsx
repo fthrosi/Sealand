@@ -12,11 +12,11 @@ export interface Division {
   members: TeamMember[]
 }
 export type TeamInput = {
-    name: string;
-    image: File;
-    division_id: number;
-    bos_id: number;
-    role: string;
+  name: string;
+  image: File;
+  division_id: number;
+  bos_id?: number;
+  role: string;
 }
 export interface DivisionOutput {
     id: number;
@@ -26,12 +26,12 @@ export interface DivisionInput{
     name: string;
 }
 export type TeamOutput = {
-    id: number;
-    name: string;
-    img_url: string;
-    division_id: number;
-    bos_id: number;
-    division: DivisionOutput;
-    role: string;
-    bos : {name: string}
+  id: number;
+  name: string;
+  img_url: string;
+  division_id: number;
+  bos_id?: number;
+  division: DivisionOutput;
+  role: string;
+  bos : {name: string}
 }

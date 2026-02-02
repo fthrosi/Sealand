@@ -31,7 +31,7 @@ export default function TeamFormEdit({ onSuccess, team }: TeamFormEditProps) {
     watch,
     formState: { errors, isSubmitting },
   } = useForm<TeamEditType>({
-    resolver: zodResolver(TeamEditSchema),
+    resolver: zodResolver(TeamEditSchema) as any,
     defaultValues: {
       name: team.name,
       division_id: team.division_id,
@@ -233,9 +233,7 @@ export default function TeamFormEdit({ onSuccess, team }: TeamFormEditProps) {
           </label>
 
           <select
-            {...register("bos_id", {
-              setValueAs: v => v === '' ? undefined : Number(v),
-            })}
+            {...register("bos_id")}
             className="w-full border border-slate-300 p-3 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
           >
             <option value="">-- Pilih Bos --</option>

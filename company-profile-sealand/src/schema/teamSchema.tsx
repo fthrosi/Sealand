@@ -9,13 +9,10 @@ const ACCEPTED_IMAGE_TYPES = [
 const baseFields = {
   name: z.string().min(1, "Nama harus diisi").max(200, "Nama terlalu panjang"),
   division_id: z.number().int().positive().min(1, "Divisi harus diisi"),
-  bos_id: z
-    .union([
-      z.number(),
-      z.string().transform((val) => (val === "" ? undefined : Number(val)))
-    ])
-    .optional()
-    .transform((val) => (typeof val === "string" && val === "" ? undefined : val)),
+  bos_id: z.preprocess(
+    (val) => val === "" ? undefined : val,
+    z.coerce.number().optional()
+  ),
   role: z.string().min(1, "Role harus diisi").max(100, "Role terlalu panjang"),
 };
 
