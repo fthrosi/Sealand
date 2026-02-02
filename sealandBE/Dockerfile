@@ -19,4 +19,5 @@ RUN npm run build
 EXPOSE 3001
 
 # CMD ["node", "dist/server.js"]
-CMD ["sh", "-c", "npx prisma db push && npx prisma db seed && node dist/server.js"]
+CMD ["node", "dist/server.js"]
+
