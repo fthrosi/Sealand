@@ -18,6 +18,17 @@ export class CareerService {
             throw error;
         }
     }
+    async getAvailableCareers() {
+        try {
+            const careers = await this.careerRepository.getAvailableCareers();
+            return {
+                data: careers,
+                message: "Available careers retrieved successfully"
+            };
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async getCareer(id: number) {
         try {

@@ -15,6 +15,10 @@ interface DataState{
   setCareers:(careers: CareerOutput[])=>void;
   fetchCareers: (force?: boolean)=>Promise<void>;
 
+  availableCareers: CareerOutput[];
+  setAvailableCareers:(availableCareers: CareerOutput[])=>void;
+  fetchAvailableCareers: (force?: boolean)=>Promise<void>;
+
   vesselTypes: VesselTypeOutput[];
   setVesselTypes:(vesselTypes: VesselTypeOutput[])=>void;
   fetchVesselTypes: (force?: boolean)=>Promise<void>;
@@ -37,6 +41,7 @@ interface DataState{
     divisions: boolean;
     flags: boolean;
     teams: boolean;
+    availableCareers: boolean;
   }
   isFetched: {
     careers: boolean;
@@ -44,6 +49,7 @@ interface DataState{
     divisions: boolean;
     flags: boolean;
     teams: boolean;
+    availableCareers: boolean;
   }
 }
 
@@ -69,6 +75,30 @@ export const useDataStore = create<DataState>((set,get)=>({
         }));
         }
     },
+
+    availableCareers: [],
+    setAvailableCareers:(availableCareers)=> set({availableCareers}),
+    fetchAvailableCareers: async (force = false) => {
+    if (get().isFetched.careers && !force) return;
+    set((state) => ({
+      isLoading: { ...state.isLoading, careers: true },
+    }));
+        try {
+        const res = await getCareers();
+        set((state) => ({ 
+            careers: res.data.data || [],
+            isFetched: { ...state.isFetched, careers: true }
+        }));
+        }catch (error) {
+        console.error("Error fetching careers:", error);
+        } finally {
+        set((state) => ({
+            isLoading: { ...state.isLoading, careers: false },
+        }));
+        }
+    },
+
+
     vesselTypes: [],
     setVesselTypes:(vesselTypes)=> set({vesselTypes}),
     fetchVesselTypes: async (force = false) => {
@@ -169,6 +199,7 @@ export const useDataStore = create<DataState>((set,get)=>({
     divisions: false,
     flags: false,
     teams: false,
+    availableCareers: false,
   },
 
   // ========== FETCHED FLAGS ==========
@@ -178,5 +209,6 @@ export const useDataStore = create<DataState>((set,get)=>({
     divisions: false,
     flags: false,
     teams: false,
+    availableCareers: false,
   },
 }));

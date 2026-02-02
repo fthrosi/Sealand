@@ -22,6 +22,21 @@ export class CareerController {
             });
         }
     }
+    async getAvailableCareers(req: Request, res: Response) {
+        try {
+            const result = await this.careerService.getAvailableCareers();
+            return res.status(200).json({
+                success: true,
+                message: result.message,
+                data: result.data
+            });
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                message: error instanceof Error ? error.message : "Terjadi kesalahan saat mengambil data available careers"
+            });
+        }
+    }
     async addCareer(req: Request, res: Response) {
         try {
             const careerData = req.body;

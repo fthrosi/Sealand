@@ -1,7 +1,6 @@
 "use client";
 import { Ship } from "lucide-react";
 import { DetailCareer } from "@/const/careers";
-import Link from "next/link";
 import { motion, easeOut } from "motion/react";
 import { useNavbarStore } from "@/store/navbar";
 import { useDataStore } from "@/store/useDataStore";
@@ -9,8 +8,6 @@ import { useEffect, useState } from "react";
 import { Career } from "@/types/career.type";
 import { useUIStore } from "@/store/useUIStore";
 import ApplicantForm from "@/components/modals/applied/modalAddApplicant";
-import { da } from "zod/v4/locales";
-import { data } from "motion/react-client";
 export default function Careers() {
   const titleVarian = {
     hidden: { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" },
@@ -45,8 +42,8 @@ export default function Careers() {
     },
   };
   const navbarHeight = useNavbarStore((state) => state.navbarHeight);
-  const fetchCareerData = useDataStore((state) => state.fetchCareers);
-  const dataCareer = useDataStore((state) => state.careers);
+  const fetchCareerData = useDataStore((state) => state.fetchAvailableCareers);
+  const dataCareer = useDataStore((state) => state.availableCareers);
   useEffect(() => {
     fetchCareerData(true);
   }, [fetchCareerData(true)]);
@@ -70,7 +67,6 @@ export default function Careers() {
     (state) => state.activeModal === "addApplicant",
   );
   const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
-  console.log(dataCareer);
   return (
     <section
       id="career"

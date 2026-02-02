@@ -10,6 +10,15 @@ export const getCareers = async () => {
     throw error;
   }
 };
+export const getAvailableCareers = async () => {
+  try {
+    const response = await api.get("/career/available");
+    return response
+  } catch (error) {
+    console.error("Error fetching careers:", error);
+    throw error;
+  }
+};
 
 export const addCareer = async (careerData: CareerInput) => {
   try {

@@ -10,6 +10,16 @@ export class CareerRepository {
             }
         });
     }
+    async getAvailableCareers() {
+        return await prisma.jobs.findMany({
+            where: {
+                status: "Open"
+            },
+            include: {  
+                vessel_type: true
+            }
+        });
+    }
     async getCareer(id: number) {
         return await prisma.jobs.findUnique({
             where: { id },
