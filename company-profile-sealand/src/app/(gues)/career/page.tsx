@@ -112,7 +112,7 @@ export default function Careers() {
             initial="hidden"
             animate="show"
             viewport={{ once: true }}
-            className={`flex bg-red-300 w-fit flex-col flex-wrap sm:flex-row sm:justify-center gap-8`}
+            className={`flex w-fit flex-col flex-wrap sm:flex-row sm:justify-center gap-8`}
           >
             {dataCleened.map((item, index) => (
               <motion.div
