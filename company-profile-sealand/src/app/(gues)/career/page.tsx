@@ -112,11 +112,7 @@ export default function Careers() {
             initial="hidden"
             animate="show"
             viewport={{ once: true }}
-            className={`flex w-full flex-col sm:flex-row sm:justify-center gap-8 ${
-              dataCleened.length % 3 === 0
-                ? "lg:justify-between"
-                : "lg:justify-start"
-            }`}
+            className={`flex bg-red-300 w-fit flex-col flex-wrap sm:flex-row sm:justify-center gap-8`}
           >
             {dataCleened.map((item, index) => (
               <motion.div
@@ -124,7 +120,7 @@ export default function Careers() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 key={index}
-                className="rounded-3xl 2xl:p-8 p-4 flex flex-col gap-8 bg-white 2xl:w-[23.313rem] w-full sm:w-[18rem]"
+                className="rounded-3xl 2xl:p-8 p-4 flex flex-col justify-between gap-8 bg-white 2xl:w-[23.313rem] w-full sm:w-[18rem]"
               >
                 <div className="flex justify-between sm:gap-0 w-full">
                   <div className="flex flex-col gap-2">
