@@ -68,14 +68,14 @@ export default function ApplicantForm({ onSuccess, jobId }: ApplicantFormProps) 
     }
   };
   return (
-    <Modal title="Form Tambah Team">
+    <Modal title="Form Application">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div>
           <label
             htmlFor="foto"
             className="block text-sm text-neutral-black font-semibold mb-2"
           >
-            Gambar <span className="text-red-500">*</span>
+            Foto Pelamar <span className="text-red-500">*</span>
           </label>
           <div className="border-2 border-dashed border-slate-300 rounded-lg p-4">
             {imagePreview ? (
@@ -124,7 +124,7 @@ export default function ApplicantForm({ onSuccess, jobId }: ApplicantFormProps) 
                   />
                 </svg>
                 <span className="text-slate-600 font-medium">
-                  Upload Gambar
+                  Upload Foto Anda
                 </span>
                 <span className="text-sm text-slate-500">
                   Drag & drop atau klik untuk memilih
@@ -177,7 +177,7 @@ export default function ApplicantForm({ onSuccess, jobId }: ApplicantFormProps) 
 
         <div className="text-neutral-black">
           <label className="block font-semibold mb-2">
-            Nomor Telepon <span className="text-red-500">*</span>
+            Nomor Telepon {"(Nomor Whatsapp)"} <span className="text-red-500">*</span>
           </label>
           <input
             {...register("no_telp")}
