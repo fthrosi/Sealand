@@ -133,7 +133,7 @@ npx prisma migrate dev
 ```
 #### Run Seeder
 ```bash
-npm run seed
+npx prisma db seed
 ```
 #### Start Backend
 ```bash
