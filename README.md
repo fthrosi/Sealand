@@ -115,6 +115,7 @@ npm run dev
 ```bash
 cd sealandBE
 npm install
+npx prisma generate
 ```
 #### Create .env File
 ```bash
